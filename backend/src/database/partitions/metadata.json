@@ -1,0 +1,82 @@
+[
+  {
+    "partitionId": "partition_0",
+    "startId": "0ea38b6d-1fd9-438c-bf80-687d579ea2ed",
+    "endId": "45907a8d-0d18-46a4-a34b-1d2cd8e57d20",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.099Z",
+    "lastModified": "2026-01-31T17:44:41.099Z"
+  },
+  {
+    "partitionId": "partition_1",
+    "startId": "7a1d4bb6-9272-4b3f-97c1-e68dc10154ba",
+    "endId": "998e1438-7228-42eb-8a60-f41571946050",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.251Z",
+    "lastModified": "2026-01-31T17:44:41.251Z"
+  },
+  {
+    "partitionId": "partition_2",
+    "startId": "73a1f450-c5eb-4823-9d5c-ca40f7f4bbc9",
+    "endId": "11b6bd5c-9132-4065-943e-63a7cf8ac6d5",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.375Z",
+    "lastModified": "2026-01-31T17:44:41.375Z"
+  },
+  {
+    "partitionId": "partition_3",
+    "startId": "1d438ac9-d8e0-4b98-92cd-b991ae1153ed",
+    "endId": "cecc5f47-e367-44f0-8dfa-babe064f8e79",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.500Z",
+    "lastModified": "2026-01-31T17:44:41.500Z"
+  },
+  {
+    "partitionId": "partition_4",
+    "startId": "d37e1179-9ed9-429b-9027-435d412dfae1",
+    "endId": "42a63a01-3d25-4cba-a799-d71edfdc5e09",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.620Z",
+    "lastModified": "2026-01-31T17:44:41.620Z"
+  },
+  {
+    "partitionId": "partition_5",
+    "startId": "3738cd23-e11a-401f-9968-a2af74bc5bc1",
+    "endId": "feebd22a-c3c6-458b-9b2b-d4877f517379",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.737Z",
+    "lastModified": "2026-01-31T17:44:41.737Z"
+  },
+  {
+    "partitionId": "partition_6",
+    "startId": "ec4eff25-a3de-43fc-b57b-cfab43c44ea5",
+    "endId": "d06033d5-4113-4816-b3b1-227843f2d3ff",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.854Z",
+    "lastModified": "2026-01-31T17:44:41.854Z"
+  },
+  {
+    "partitionId": "partition_7",
+    "startId": "c03bf609-1936-4ce3-9d83-7c7605f8cfd4",
+    "endId": "8b925bda-760f-4122-87b1-7088cce9090b",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:41.972Z",
+    "lastModified": "2026-01-31T17:44:41.972Z"
+  },
+  {
+    "partitionId": "partition_8",
+    "startId": "5a2fde6e-bda7-40c5-92a8-42eaddd1e3fa",
+    "endId": "09da2f57-f288-4b9b-8548-d4708a0e74b3",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:42.089Z",
+    "lastModified": "2026-01-31T17:44:42.089Z"
+  },
+  {
+    "partitionId": "partition_9",
+    "startId": "e60f9779-d2b9-44d3-ad46-f89c0320d86f",
+    "endId": "4425cb81-c0f0-4b29-9c9a-c744e0edd92b",
+    "totalBooks": 10000,
+    "createdAt": "2026-01-31T17:44:42.232Z",
+    "lastModified": "2026-01-31T17:44:42.232Z"
+  }
+]

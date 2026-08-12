@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Books API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover { background: #5568d3; }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .book-card {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .book-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .book-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Google Books API Test</h1>
+        <p>This page tests if your Google Books integration is working.</p>
+
+        <div id="status"></div>
+
+        <div>
+            <h3>Test Options:</h3>
+            <button onclick="testHealth()">1. Test Backend Health</button>
+            <button onclick="testGoogleBooks()">2. Test Google Books API</button>
+            <button onclick="testSearch()">3. Test Book Search</button>
+            <button onclick="testWithQuery()">4. Search "JavaScript"</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="${type}">${message}</div>`;
+        }
+
+        function showResults(title, data) {
+            const resultsDiv = document.getElementById('results');
+            const html = `
+                <h3>${title}</h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            resultsDiv.innerHTML = html;
+        }
+
+        function showBooks(books) {
+            const resultsDiv = document.getElementById('results');
+            if (!books || books.length === 0) {
+                resultsDiv.innerHTML = '<p>No books found</p>';
+                return;
+            }
+            
+            const booksHtml = books.map(book => `
+                <div class="book-card">
+                    <h3>${book.title}</h3>
+                    <p><strong>Author:</strong> ${book.author}</p>
+                    <p><strong>Published:</strong> ${book.publishedDate}</p>
+                    <p><strong>Source:</strong> ${book.source}</p>
+                    ${book.isbn ? `<p><strong>ISBN:</strong> ${book.isbn}</p>` : ''}
+                </div>
+            `).join('');
+            
+            resultsDiv.innerHTML = `<h3>📚 Found ${books.length} Books</h3>${booksHtml}`;
+        }
+
+        async function testHealth() {
+            showStatus('Testing backend health...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('✅ Backend is running!', 'success');
+                    showResults('Health Check Response', data);
+                } else {
+                    showStatus('❌ Backend returned an error', 'error');
+                    showResults('Error Response', data);
+                }
+            } catch (error) {
+                showStatus(`❌ Cannot connect to backend: ${error.message}`, 'error');
+                showResults('Error Details', { error: error.message });
+            }
+        }
+
+        async function testGoogleBooks() {
+            showStatus('Testing Google Books API endpoint...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/external-books/search/google?query=python&pageSize=5`);
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showStatus(`✅ Google Books API works! Found ${data.data.totalItems} books`, 'success');
+                    showBooks(data.data.books);
+                } else {
+                    showStatus('❌ Google Books API failed', 'error');
+                    showResults('Error Response', data);
+                }
+            } catch (error) {
+                showStatus(`❌ Request failed: ${error.message}`, 'error');
+                showResults('Error Details', { error: error.message });
+            }
+        }
+
+        async function testSearch() {
+            showStatus('Testing combined search endpoint...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/external-books/search?query=programming&pageSize=10`);
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showStatus(`✅ Search works! Found ${data.data.totalItems} books`, 'success');
+                    showBooks(data.data.books);
+                } else {
+                    showStatus('❌ Search failed', 'error');
+                    showResults('Error Response', data);
+                }
+            } catch (error) {
+                showStatus(`❌ Request failed: ${error.message}`, 'error');
+                showResults('Error Details', { error: error.message });
+            }
+        }
+
+        async function testWithQuery() {
+            showStatus('Searching for JavaScript books...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/external-books/search?query=javascript&author=&subject=&pageSize=8`);
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showStatus(`✅ Found ${data.data.books.length} JavaScript books!`, 'success');
+                    showBooks(data.data.books);
+                } else {
+                    showStatus('❌ Search failed', 'error');
+                    showResults('Error Response', data);
+                }
+            } catch (error) {
+                showStatus(`❌ Request failed: ${error.message}`, 'error');
+                showResults('Error Details', { error: error.message });
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            showStatus('Click a button to test the API', 'info');
+        });
+    </script>
+</body>
+</html>
