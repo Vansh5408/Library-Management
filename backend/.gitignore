@@ -9,3 +9,6 @@ dist/
 package-lock.json
 yarn.lock
 database/library.json
+PRODUCTION_CHECKLIST.md
+README.md
+SETUP.md
